@@ -60,9 +60,7 @@ export default function Joke(props) {
       
       <h3>A message from mother: </h3>
       <button className="border-solid border-4 border-amber-400">Click me</button>
-      <button className="bg-red-500 text-white p-8 text-3xl">
-  Click me
-</button>
+    
     </>
   );
 }
