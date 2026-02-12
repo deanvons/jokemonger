@@ -1,66 +1,28 @@
-import { useEffect, useReducer, useState } from "react";
-import { getJokes } from "../api/jokeFetcher";
+import { useState } from "react";
 
 export default function Joke(props) {
-  let maxNumber = 6;
+  const [deliveryIsVisible, setDeliveryIsVisible] = useState(false);
 
-  function jokeReducer(state, action) {
-    switch (action.type) {
-      case "UPDATE_DELIVERY":
-        return { ...state, delivery: action.payload };
-      case "RESET_JOKE":
-        return { setup: "", delivery: "" };
-      default:
-        return state;
-    }
+  function showDelivery() {
+    setDeliveryIsVisible(true);
   }
 
-  const [joke, dispatch] = useReducer(jokeReducer, {
-    setup: "What is brown and sticky?",
-    delivery: "A stick",
-  });
-
-  // lifecycle
-  // component did mount
-  useEffect(() => {
-    console.log("Component did mount");
-  }, []);
-
-  useEffect(() => {
-    if (
-      joke ==
-      {
-        setup: "What is brown and sticky?",
-        delivery: "A stick",
-      }
-    ) {
-      return;
-    }
-
-    console.log("Component did update some state");
-  }, [joke]);
-
-  // lifted
-
-  function handleJokeTitleClick() {
-    //
-    //setJoke("Some delivery update");
-    dispatch({ type: "UPDATE_DELIVERY", payload: "Some delivery update" });
-    // get some actualy joke data
-    
-
-    // let the parent know something happened
-    //props.onTitleClick("Sure mamma")
-  }
+  function handleJokeTitleClick() {}
 
   return (
     <>
-      <h2 onClick={handleJokeTitleClick}>Joke Title</h2>
+      <h2>{props.joke.setup}....</h2>
 
-      
-      <h3>A message from mother: </h3>
-      <button className="border-solid border-4 border-amber-400">Click me</button>
-    
+      <h2 style={{ visibility: deliveryIsVisible ? "visible" : "hidden" }}>
+        {props.joke.delivery}
+      </h2>
+
+      <button
+        onClick={showDelivery}
+        className="border-solid border-4 border-amber-400"
+      >
+        Show
+      </button>
     </>
   );
 }
